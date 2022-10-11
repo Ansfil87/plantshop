@@ -1,0 +1,331 @@
+@import 'vars';
+@import 'fonts';
+@import 'reset';
+@import 'global';
+
+.fs {
+  background-image: url('../images/bg.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center bottom;
+  height: 100vh;
+  position: relative;
+  padding-top: 56px;
+  color: white;
+  text-align: center;
+
+  /* отступ от верха. Очень популярно использовать 8-ми пиксельную сетку */
+  &__title {
+    @extend %worksans-700;
+    font-size: 82px;
+    line-height: 1.17;
+    max-width: 1128px;
+    margin: 0 auto 24px;
+    /* обязателен, чтобы титл стал по центру */
+  }
+
+  &__desc {
+    @extend %worksans-400;
+    font-size: 24px;
+    line-height: 1.5;
+    max-width: 582px;
+    margin: 0 auto 42px;
+    /* тоже самое */
+  }
+}
+
+.fs::after {
+  /* белый градиент */
+  content: "";
+  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  /* лево ноль и право ноль, тем самым растягиваем на всю ширину родительского блока */
+  bottom: 0;
+  height: 10%;
+  /* высота 10 % от родительского блока */
+  background: linear-gradient(to bottom, transparent, white);
+  /* градиент прозрачного к белому  градиент можно в градусах также задавать  */
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  justify-content: space-between;
+  margin-bottom: 64px;
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  gap: 68px;
+  /* отступы между ссылками */
+
+  &__link {
+    font-size: 24px;
+    line-height: 1.17;
+    @extend %worksans-400;
+  }
+
+  &__link:hover,
+  &__link:active {
+    @extend %worksans-600;
+    background: var(--gradient);
+    /* вставили градиент из глобала*/
+    background-clip: text;
+    /* после этого текст будет жирнеть, но не менять градиент */
+    -webkit-text-fill-color: transparent;
+    /* эта настройка сделает текст прозрачным */
+  }
+}
+
+.cart {
+  font-size: 36px;
+  /* задали по высоте иконки */
+  color: #FFFFFF;
+  position: relative;
+
+  &__count {
+    @extend %worksans-700;
+    font-size: 14px;
+    line-height: 1.15;
+    color: #2D3949;
+    width: 21px;
+    height: 21px;
+    border-radius: 21px;
+    background: var(--gradient);
+    display: grid;
+    /* чтобы поставить по центру делаем его сеткой грид */
+    align-items: center;
+    justify-items: center;
+    /* выравнивание по горизонтали */
+    position: absolute;
+    top: 1px;
+    right: -6px;
+  }
+}
+
+
+.benefit {
+  height: 300px;
+}
+
+/* UI-kit   набор элементов */
+/* input с кнопкой */
+.input {
+  width: 462px;
+  height: 70px;
+  padding: 10px 12px 10px 30px;
+  border: 1px solid white;
+  border-radius: 50px;
+  margin: 0 auto;
+  /* распологаем по центру */
+  background-color: rgba(255, 255, 255, 0.2);
+  display: flex;
+  /* распологаем элементы по краям */
+  justify-content: space-between;
+  align-items: center;
+  @extend %worksans-400;
+
+
+  &__btn {
+    --size: 50px;
+    /* сделали локальную переменную size, чтобы удобно было менять при адаптиве */
+    min-width: var(--size);
+    /* обязательно min чтобы кнопка могла расширяся */
+    height: var(--size);
+    border-radius: var(--size);
+    background: var(--gradient);
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    font-size: 20px;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+
+  &__btn div {
+    /* теперь у следующих кнопок с div будут мрджины 0 24 */
+    margin: 0 24px;
+  }
+
+  &__text::placeholder {
+    color: #FFFFFF;
+    font-size: 20px;
+    line-height: 1.15;
+  }
+}
+
+.input input {
+  /* убираем лишнее в инпуте */
+  background: transparent;
+  color: white;
+  border: none;
+  outline: none;
+  /* убрали внешнюю обводку */
+  font-size: 20px;
+  line-height: 1.15;
+}
+
+.placeholder {
+  color: #FFFFFF;
+}
+
+.tooltip {
+  --size: 54px;
+  position: relative;
+  width: var(--size);
+  &__circle {
+    /* --size: 54px; */
+    /* перенесли потом ее отсюда в tooltip */
+    /* создали локальную переменную */
+    width: var(--size);
+    height: var(--size);
+    border-radius: var(--size);
+    overflow: hidden;
+    /* скрыть все что выходит за границы */
+    border: 1px solid white;
+    position: relative;
+    cursor: pointer;
+  }
+
+  &__circle:after {
+    --size: 16px;
+    content: "";
+    display: block;
+    position: absolute;
+    top: 50%;
+    /* отступы */
+    left: 50%;
+    margin-top: calc(var(--size) / -2);
+    /* то же самое сделали для отступа сверху */
+    margin-left: calc(var(--size) / -2);
+    /* 16 пкс делим на -2, сдвинули по горизонтали  */
+    width: var(--size);
+    height: var(--size);
+    border-radius: var(--size);
+    background-color: #fff;
+  }
+
+  &__circle div {
+    width: 100%;
+    height: 100%;
+    background-color: rgb(255, 255, 255, 0.2);
+    filter: blur(1px);
+    /* радиус размытия */
+  }
+
+  &__circle:hover+&__popup {
+    /* когда наводим на круг появляется рамка */
+    opacity: 1;
+  }
+
+  &__popup {
+    opacity: 0;
+    /* задали прозрачность для фона */
+    position: absolute;
+    top: -220%;
+    left: 50%;
+    transform: translateX(-50%);
+    overflow: hidden;
+    border: 1px solid white;
+    padding: 24px 75px 26px 20px;
+    border-radius: 24px;
+    @extend %worksans-700;
+    /*  лайн хейт не указываем!!!!! */
+    transition: all 0.3s ease-in-out;
+  }
+
+
+  &__popup div {
+    /* внутренее размытие */
+    position: absolute;
+    /* этим мы рястягиваем по всем краям родителя */
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgb(255, 255, 255, 0.2);
+    filter: blur(1px);
+  }
+
+  &__popup strong {
+    font-size: 32px;
+  }
+
+  &__popup span {
+    font-size: 16px;
+    white-space: nowrap;
+    /* не переносить строку на новую строку */
+  }
+}
+
+.tooltip.tooltip__1 {
+  position: absolute;
+  right: 10%;
+  bottom: 56%;
+}
+
+.tooltip.tooltip__2 {
+  position: absolute;
+  left: 6%;
+  top: 11%;
+}
+
+.tooltip.tooltip__3 {
+  position: absolute;
+  left: 12%;
+  bottom: 57%;
+}
+
+.benefit {
+  height: 300px;
+  padding: 100px 0 140px;
+
+  &__info {
+    display: flex;
+    align-items: center;
+    gap: 32;
+    @extend %worksans-500;
+  }
+
+  &__info i {
+    font-size: 72px;
+    background: var(--gradient);
+    /* вставили градиент из глобала*/
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-right: 34px;
+    
+  }
+
+  &__info div {
+    display: grid;
+    /* ставим сетку, чтобы объекты были в ряд */
+    grid-gap: 8px;
+  }
+
+  &__info strong {
+    font-size: 32px;
+    line-height: 1.19;
+    @extend %worksans-500;
+  }
+
+  &__info span {
+    font-size: 20px;
+    line-height: 1.15;
+    color: #828282;
+  }
+}
+.benefit .container { /* поставили как в спейс бетвин */
+  display: flex;
+  gap: 32px; /* наугад */
+  align-items: center; /* выравнивание по вертикали */
+  justify-content: space-around
+}
+
+
+@import 'media';
